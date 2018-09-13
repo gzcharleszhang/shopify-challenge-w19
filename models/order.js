@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-  lineItemIds: Array,
-  price: Number,
+  amount: Number,
+  shopId: String,
   _createdOn: {
     type: Date,
     default: Date.now(),

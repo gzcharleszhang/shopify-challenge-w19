@@ -4,8 +4,9 @@ const { Schema } = mongoose;
 
 const lineItemSchema = new Schema({
   productId: String,
-  quantities: Number,
-  price: Number,
+  orderId: String,
+  quantity: Number,
+  amount: Number,
   _createdOn: {
     type: Date,
     default: Date.now(),
