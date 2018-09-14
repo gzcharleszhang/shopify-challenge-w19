@@ -17,7 +17,7 @@ module.exports = {
         name: shop.name,
       }))
       .catch((err) => {
-        next(new ServerError(err.ToString()));
+        next(new ServerError(err.toString()));
       })
   },
 
@@ -45,7 +45,7 @@ module.exports = {
 
   // Update shop
   update: (req, res, next) => {
-    const { name, otherFields } = req.body;
+    const { name, ...otherFields } = req.body;
     const { _id } = req.params;
     if (!name) {
       next(new ServerError('Missing parameter: name'));
@@ -55,15 +55,11 @@ module.exports = {
     }
     ShopModel.findById(_id)
       .then((oldShop) => {
-        oldShop = {
-          ...oldShop,
-          name,
-          otherFields,
-        }
-        oldShop.save();
+        oldShop.set({ name, ...otherFields });
+        return oldShop.save();
       })
       .then(newShop => res.json(newShop))
-      .catch(err => next(new ServerError(err.ToString())));
+      .catch(err => next(new ServerError(err.toString())));
   },
 
   // delete shop
@@ -74,7 +70,7 @@ module.exports = {
     }
     ShopModel.findByIdAndRemove(_id)
       .then(shop => res.json(shop))
-      .catch(err => next(new ServerError(err.ToString())));
+      .catch(err => next(new ServerError(err.toString())));
   }
 
 }

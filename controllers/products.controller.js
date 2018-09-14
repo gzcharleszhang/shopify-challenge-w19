@@ -31,7 +31,7 @@ module.exports = {
         price: product.price,
       }))
       .catch((err) => {
-        next(new ServerError(err.ToString()));
+        next(new ServerError(err.toString()));
       })
   },
 
@@ -85,7 +85,7 @@ module.exports = {
         return oldProduct.save();
       })
       .then(newProduct => res.json(newProduct))
-      .catch(err => next(new ServerError(err.ToString())));
+      .catch(err => next(new ServerError(err.toString())));
   },
 
   // delete product
@@ -96,7 +96,7 @@ module.exports = {
     }
     ProductModel.findByIdAndRemove(_id)
       .then(product => res.json(product))
-      .catch(err => next(new ServerError(err.ToString())));
+      .catch(err => next(new ServerError(err.toString())));
   }
 
 }

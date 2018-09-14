@@ -63,7 +63,7 @@ module.exports = {
               newItems,
             }));
         })
-        .catch((err) => next(new ServerError(err.ToString())))
+        .catch((err) => next(new ServerError(err.toString())))
     })
   },
 
@@ -109,7 +109,7 @@ module.exports = {
     }
     OrderModel.findByIdAndRemove(_id)
       .then(order => res.json(order))
-      .catch(err => next(new ServerError(err.ToString())));
+      .catch(err => next(new ServerError(err.toString())));
   }
 
 }

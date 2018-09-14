@@ -4,9 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-const shopsRouter = require('./routes/shops.routes');
-const productsRouter = require('./routes/products.routes')
-const ordersRouter = require('./routes/orders.routes');
+const router = require('./routes/routes');
 
 const app = express();
 
@@ -22,8 +20,6 @@ mongoose.connect(process.env.MONGO_URL, {
   .catch(err => console.log(err));
 
 // routes
-app.use('/shops', shopsRouter);
-app.use('/products', productsRouter);
-app.use('/orders', ordersRouter);
+app.use('/', router);
 
 module.exports = app;

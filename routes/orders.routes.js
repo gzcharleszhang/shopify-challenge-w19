@@ -3,14 +3,14 @@ const express = require('express');
 const router = express.Router();
 const OrderController = require('../controllers/products.controller');
 
-router.post('/create', OrderController.create);
+router.post('/', OrderController.create);
 
-router.get('/fetchAll', OrderController.fetchAll);
+router.get('/', OrderController.fetchAll);
 
-router.get('/fetch/:_id', OrderController.fetch);
+router.get('/:_id', OrderController.fetch);
 
-router.put('/update/:_id', OrderController.update);
+router.put('/:_id', OrderController.update);
 
-router.delete('/fetch/:_id', OrderController.delete);
+router.delete('/:_id', OrderController.delete);
 
 module.exports = router;
