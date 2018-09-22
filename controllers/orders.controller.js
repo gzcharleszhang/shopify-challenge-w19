@@ -6,10 +6,7 @@ const { ServerError } = require('../error');
 module.exports = {
   // Create a new order
   create: (req, res, next) => {
-    const { name, shopId, lineItems } = req.body;
-    if (!name) {
-      next(new ServerError('Missing parameter: name'));
-    }
+    const { shopId, lineItems } = req.body;
     if (!shopId) {
       next(new ServerError('Missing parameter: shopId'));
     }
@@ -50,7 +47,7 @@ module.exports = {
         shopId,
       });
 
-      newOrder.save()
+      return newOrder.save()
         .then((order) => {
           const createItemPromises = lineItems.map((item) => {
             item.orderId = order._id;
@@ -59,12 +56,12 @@ module.exports = {
 
           Promise.all(createItemPromises)
             .then(newItems => res.json({
-              ...order,
+              order,
               newItems,
             }));
         })
-        .catch((err) => next(new ServerError(err.toString())))
     })
+    .catch((err) => next(new ServerError(err.toString())))
   },
 
   // Find all orders
@@ -74,7 +71,7 @@ module.exports = {
         const { _id } = order;
         return LineItemModel.find({ orderId: _id })
           .then(items => ({
-            ...order,
+            order,
             items,
           }))
       })))
@@ -94,7 +91,7 @@ module.exports = {
       .then((order) => {
         LineItemModel.find({ orderId: order._id })
           .then(items => res.json({
-            ...order,
+            order,
             items,
           }))
       })

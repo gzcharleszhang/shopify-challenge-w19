@@ -3,10 +3,13 @@ const logger = require('morgan');
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const cors = require('cors');
 
 const router = require('./routes/routes');
 
 const app = express();
+
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());

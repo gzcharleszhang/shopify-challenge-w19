@@ -76,12 +76,7 @@ module.exports = {
     }
     ProductModel.findById(_id)
       .then((oldProduct) => {
-        oldProduct = {
-          ...oldProduct,
-          name,
-          price: parsedPrice.toFixed(2),
-          otherFields,
-        }
+        oldProduct.set({ name, price: parsedPrice.toFixed(2), ...otherFields });
         return oldProduct.save();
       })
       .then(newProduct => res.json(newProduct))
